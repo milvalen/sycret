@@ -1,3 +1,3 @@
 # Sycret
 
-Visual implementation of Sycret API on React
+Visual REST implementation of Sycret API on React
