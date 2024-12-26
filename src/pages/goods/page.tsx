@@ -1,5 +1,4 @@
 import React from 'react';
+import GoodChoice from '../../features/good';
 
-export const GoodsPage = () => {
-  return <h1>Goods</h1>;
-}
+export const GoodsPage = () => <GoodChoice/>;
