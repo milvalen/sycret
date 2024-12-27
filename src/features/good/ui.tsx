@@ -3,12 +3,11 @@ import {AppDispatch, RootState} from '../../shared/lib/redux';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchGoods} from './model';
 
-//TODO: display fetched goods
+//TODO: layout good component
 
 export const GoodChoice: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-
-  const goods = useSelector((state: RootState) => state.good);
+  const goods = useSelector((state: RootState) => state.good.goods);
 
   useEffect(() => {
     dispatch(fetchGoods())
@@ -17,9 +16,9 @@ export const GoodChoice: React.FC = () => {
   return (
     <>
       <h1>Goods</h1>
-      <ul>
-        {goods.map((item) => (<li key={item.ID}></li>))}
-      </ul>
+      <div>
+        {goods.map((item) => (<p key={item.ID}>{item.NAME}</p>))}
+      </div>
     </>
   );
 }

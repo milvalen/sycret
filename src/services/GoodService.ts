@@ -12,11 +12,9 @@ const OSGetGoodList = async (): Promise<Good[]> => {
     process.env.API_ENDPOINT! + stringifyParams({ ApiKey: process.env.API_KEY, MethodName: 'OSGetGoodList' }),
   );
 
-  console.log(response);
-
   const result = GoodSchema.array().safeParse(response.data.data);
-
   if (!result.success) return handleIncorrectParse(result.error, 'OSGetGoodList');
+
   return result.data;
 }
 
