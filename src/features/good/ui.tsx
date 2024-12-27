@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {AppDispatch, RootState} from '../../shared/lib/redux';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchGoods} from './model';
-
-//TODO: layout good component
+import GoodCard from '../../components/GoodCard';
+import * as style from '../../styles/good.module.scss';
 
 export const GoodChoice: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,11 +14,16 @@ export const GoodChoice: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <h1>Goods</h1>
-      <div>
-        {goods.map((item) => (<p key={item.ID}>{item.NAME}</p>))}
-      </div>
-    </>
+    <div className={style.gridContainer}>
+      {goods.map(
+        (item) => <GoodCard
+          NAME={item.NAME}
+          PRICE={item.PRICE}
+          DISCOUNT={item.DISCOUNT}
+          DESCRIPTION={item.DESCRIPTION}
+          SUMMA={item.SUMMA}
+        />
+      )}
+    </div>
   );
 }

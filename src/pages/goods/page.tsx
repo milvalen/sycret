@@ -1,4 +1,11 @@
 import React from 'react';
-import GoodChoice from '../../features/good';
+import GoodChoice from '../../features/good'
 
-export const GoodsPage = () => <GoodChoice/>;
+//TODO: style page
+
+export const GoodsPage = () => (
+  <>
+    <h1>Выберите сертификат</h1>
+    <GoodChoice/>
+  </>
+);
