@@ -1,8 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {goodService} from '../../services/GoodService';
 import {Good} from '../../types/GoodType';
-import {undefined} from 'zod';
-import good from './index';
 
 type Certificate = Omit<Good, 'TABLENAME' | 'PRIMARYKEY'>;
 

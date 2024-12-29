@@ -1,5 +1,6 @@
 import React from 'react';
 import './GoodCard.scss';
+import {Card, CardActionArea, CardContent, Typography} from '@mui/material';
 
 interface GoodCardProps {
   NAME: string;
@@ -10,21 +11,25 @@ interface GoodCardProps {
 }
 
 const GoodCard = (props: GoodCardProps) => (
-  <div className="gift-card">
-    {props.DISCOUNT && <div className="card-header">{props.DISCOUNT}% OFF</div>}
-    <div className="card-body">
-      <h3>{props.NAME}</h3>
-      {props.DESCRIPTION && <p className="description">{props.DESCRIPTION}</p>}
-      {props.DISCOUNT
-        ? <div className="discount">
-          <span>₽{props.PRICE}</span>
+  <Card sx={{ maxWidth: 345 }}>
+    <CardActionArea>
+      <CardContent>
+        {props.DISCOUNT
+          && <div className="card-header">
+            <div className="discount">{props.DISCOUNT}% OFF</div>
+          </div>
+        }
+        <Typography gutterBottom variant="h5" component="div" textAlign="center">{props.NAME}</Typography>
+        {props.DESCRIPTION
+          && <Typography variant="body2" sx={{ color: 'text.secondary' }}>{props.DESCRIPTION}</Typography>
+        }
+        <div className="price">
+          {props.DISCOUNT && <span>₽{props.PRICE}</span>}
           <p>₽{props.SUMMA}</p>
         </div>
-        : <div className="price">₽{props.PRICE}</div>
-      }
-    </div>
-    <div className="card-footer"/>
-  </div>
+      </CardContent>
+    </CardActionArea>
+  </Card>
 );
 
 export default GoodCard;
