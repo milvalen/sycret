@@ -4,14 +4,17 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchGoods} from './model';
 import GoodCard from '../../components/GoodCard';
 import * as style from '../../styles/good.module.scss';
+import {CircularProgress} from '@mui/material';
 
-export const GoodChoice: React.FC = () => {
+export const GoodChoice = () => {
   const dispatch = useDispatch<AppDispatch>();
   const goods = useSelector((state: RootState) => state.good.goods);
 
   useEffect(() => {
     dispatch(fetchGoods())
   }, [dispatch]);
+
+  if (!goods.length) return <div><CircularProgress /></div>;
 
   return (
     <div className={style.gridContainer}>
