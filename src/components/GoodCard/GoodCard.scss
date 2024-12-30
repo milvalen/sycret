@@ -1,0 +1,59 @@
+.card-header {
+  display: flex;
+  justify-content: end;
+}
+
+.discount {
+  display: flex;
+  width: 7.5rem;
+  height: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 1rem 1rem 0;
+  background: linear-gradient(135deg, #0154c8, #18b9d4);
+  box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.card-body {
+  margin-bottom: 2rem;
+}
+
+.card-body h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.description {
+  opacity: 0.9;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.price {
+  font-size: 1rem;
+  display: flex;
+  font-weight: bold;
+  flex-direction: column;
+  gap: 0.5rem;
+  opacity: 0.5;
+  span {
+    text-decoration: line-through;
+  }
+}
+
+.card-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .gift-card-container {
+    flex-direction: column;
+  }
+
+  .gift-card {
+    margin-top: 2rem;
+  }
+}
