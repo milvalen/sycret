@@ -1,8 +1,25 @@
+import axios from 'axios';
+import {stringifyParams} from './utils';
+import {handleIncorrectParse} from './ErrorHandlers';
+import {Sale, SaleData, SaleSchema} from '../types/SaleType';
+
+// todo: good to saleData
+
 interface SaleService {
-  SaleService: () => Promise<string>;
+  OSSale: (data: SaleData) => Promise<Sale>;
 }
 
-//todo: implement sale method
+const OSSale = async (data: SaleData): Promise<Sale> => {
+  const response = await axios(
+    `${process.env.API_ENDPOINT!}${stringifyParams({ ApiKey: process.env.API_KEY, MethodName: 'OSSale' })}${stringifyParams(data)}`,
+  );
 
-// const OSSale = (): Promise<string> => {
-// }
+  const result = SaleSchema.safeParse(response.data.data);
+  if (!result.success) return handleIncorrectParse(result.error, 'OSSale');
+
+  return result.data;
+}
+
+export const saleService: SaleService = {
+  OSSale: OSSale,
+}
