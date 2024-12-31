@@ -3,8 +3,6 @@ import {stringifyParams} from './utils';
 import {handleIncorrectParse} from './ErrorHandlers';
 import {Sale, SaleData, SaleSchema} from '../types/SaleType';
 
-// todo: good to saleData
-
 interface SaleService {
   OSSale: (data: SaleData) => Promise<Sale>;
 }

@@ -2,16 +2,14 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {goodService} from '../../services/GoodService';
 import {Good} from '../../types/GoodType';
 
-type Certificate = Omit<Good, 'TABLENAME' | 'PRIMARYKEY'>;
-
-export const fetchGoods = createAsyncThunk<Certificate[]>(
+export const fetchGoods = createAsyncThunk<Good[]>(
   'good/fetchGoods',
   goodService.OSGetGoodList
 );
 
-const goodSlice = createSlice({
+export const goodSlice = createSlice({
   initialState: {
-    goods: [] as Certificate[]
+    goods: [] as Good[]
   },
   reducers: {},
   name: 'good',

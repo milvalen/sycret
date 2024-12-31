@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import goodReducer from '../../features/good/model';
+import saleReducer from '../../features/sale/model';
 
 export const store = configureStore({
   reducer: {
-    good: goodReducer
+    good: goodReducer,
+    sale: saleReducer,
   },
 });
 

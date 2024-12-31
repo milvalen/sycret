@@ -8,11 +8,12 @@ interface GoodCardProps {
   DISCOUNT: string | null;
   DESCRIPTION: string | null;
   SUMMA: string;
+  onClick: (event: React.MouseEvent) => void;
 }
 
 const GoodCard = (props: GoodCardProps) => (
   <Card sx={{ maxWidth: 345 }}>
-    <CardActionArea>
+    <CardActionArea onClick={props.onClick}>
       <CardContent>
         {props.DISCOUNT
           && <div className="card-header">
