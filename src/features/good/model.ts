@@ -8,11 +8,11 @@ export const fetchGoods = createAsyncThunk<Good[]>(
 );
 
 export const goodSlice = createSlice({
+  name: 'good',
   initialState: {
     goods: [] as Good[]
   },
   reducers: {},
-  name: 'good',
   extraReducers: (builder) => builder.addCase(
     fetchGoods.fulfilled,
     (state, action) => {

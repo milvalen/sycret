@@ -2,13 +2,16 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {Good} from '../../types/GoodType';
 import {SaleData} from '../../types/SaleType';
 
+type FormData = SaleData & { Name: string };
+
 export const saleSlice = createSlice({
+  name: 'sale',
   initialState: {
-    data: {} as SaleData & { Name: string },
+    form: {} as FormData,
   },
   reducers: {
     toSale: (state, action: PayloadAction<Good>) => {
-      state.data = {
+      state.form = {
         Id: Number(action.payload.ID),
         Name: action.payload.NAME,
         TableName: action.payload.TABLENAME,
@@ -19,9 +22,14 @@ export const saleSlice = createSlice({
         Phone: '',
         Email: '',
       };
-    }
+    },
+    updateField: (
+      state,
+      action: PayloadAction<{ field: keyof FormData; value: FormData[keyof FormData] }>
+    ) => {
+      (state.form[action.payload.field] as FormData[keyof FormData]) = action.payload.value;
+    },
   },
-  name: 'sale',
 });
 
 export default saleSlice.reducer;
