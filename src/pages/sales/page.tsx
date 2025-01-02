@@ -15,7 +15,7 @@ export const SalesPage = () => {
 
   return (
     <>
-      <h1>{sale.form.Name}</h1>
+      <h1>{sale.name}</h1>
       <p>Пожайлуста, заполните форму для завершения вашего подарочного заказа</p>
       <Sale/>
     </>

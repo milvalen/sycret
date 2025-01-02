@@ -1,45 +1,67 @@
 import {Box, Button, ButtonGroup, InputAdornment, TextField} from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
-import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import * as style from '../../styles/sale.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../shared/lib/redux';
 import {saleSlice} from './model';
+import {SaleValidation} from '../../types/SaleType';
+import {handleZodValidation, ValidationError} from '../../shared/lib/zod';
 
 export const Sale = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const form = useSelector((state: RootState) => state.sale.form);
+  const [errors, setErrors] = useState<ValidationError<typeof SaleValidation>>({})
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleChange = (
-    field: keyof typeof form
-  ) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    dispatch(saleSlice.actions.updateField({ field, value: e.target.value }))
+  function handleChange(field: keyof typeof form, value: string | number) {
+    dispatch(saleSlice.actions.updateField({field, value: value}));
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    handleZodValidation({
+      onError: setErrors,
+      data: form,
+      onSuccess: (res) => {
+        console.log(form);
+        // todo: dispatch form submit
+      },
+      schema: SaleValidation,
+    });
   };
 
   return (
     <Box
+      onSubmit={handleSubmit}
       className={style.sale}
       component="form"
     >
-      <TextField required label="Имя клиента" id="name" variant="filled" placeholder="e.g., Марк Андреев" />
       <TextField
-        required
-        label="Телефон"
-        id="phone"
-        placeholder="e.g., 9161237589"
+        onChange={(e) => handleChange('ClientName', e.target.value)}
+        helperText={errors.ClientName}
+        placeholder="e.g., Марк Андреев"
+        label="Имя клиента"
         variant="filled"
-        // (\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$
+        error={!!errors.ClientName}
+        required
+      />
+      <TextField
+        onChange={(e) => handleChange('Phone', e.target.value)}
         slotProps={{
           input: {
             startAdornment: <InputAdornment position="start">+7</InputAdornment>,
           },
         }}
+        helperText={errors.Phone}
+        placeholder="e.g., 9161237589"
+        label="Телефон"
+        variant="filled"
+        error={!!errors.Phone}
+        required
       />
       <TextField
-        required
-        id="Email"
-        label="Email"
-        placeholder="e.g., example@email.com"
+        onChange={(e) => handleChange('Email', e.target.value)}
         slotProps={{
           input: {
             startAdornment: (
@@ -49,43 +71,60 @@ export const Sale = () => {
             ),
           },
         }}
+        placeholder="e.g., example@email.com"
+        helperText={errors.Email}
         variant="filled"
+        label="Email"
+        error={!!errors.Email}
+        required
       />
       <div className={style.choice}>
         <p>Это подарок?</p>
-        <ButtonGroup
-          onChange={(e) => handleChange('IsGift')}
-          variant="contained"
-          orientation="vertical"
-        >
-          <Button value={1}>Да</Button>
-          <Button value={0}>Нет</Button>
+        <ButtonGroup orientation="vertical" variant="contained">
+          <Button
+            color={form.IsGift === 1 ? 'secondary' : 'primary'}
+            onClick={() => handleChange('IsGift', 1)}
+          >
+            Да
+          </Button>
+          <Button
+            color={form.IsGift !== 1 ? 'secondary' : 'primary'}
+            onClick={() => handleChange('IsGift', 0)}
+          >
+            Нет
+          </Button>
         </ButtonGroup>
       </div>
-      {form.IsGift && (<>
+      {form.IsGift === 1 && (<>
         <TextField
-          id="msgText"
-          label="Текст сообщения"
-          multiline
-          rows={4}
+          onChange={(e) => handleChange('MsgText', e.target.value)}
           placeholder="Написать личное сообщение получателю"
+          label="Текст сообщения"
+          variant="filled"
+          rows={4}
+          multiline
+        />
+        <TextField
+          onChange={(e) => handleChange('PName', e.target.value)}
+          placeholder="e.g., Валерия Андреева"
+          label="Имя получателя"
           variant="filled"
         />
-        <TextField label="Имя получателя" id="pName" variant="filled" placeholder="e.g., Валерия Андреева" />
         <TextField
-          label="Телефон получателя"
-          id="pPhone"
-          placeholder="e.g., 9161237589"
-          variant="filled"
-          // (\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$
+          onChange={(e) => handleChange('PPhone', e.target.value)}
           slotProps={{
             input: {
-            startAdornment: <InputAdornment position="start">+7</InputAdornment>,
+              startAdornment: <InputAdornment position="start">+7</InputAdornment>,
             },
           }}
+          helperText={errors.PPhone}
+          placeholder="e.g., 9161237589"
+          label="Телефон получателя"
+          variant="filled"
+          error={!!errors.PPhone}
         />
       </>)}
-      <Button type="submit" variant="contained">Подтвердить</Button>
+      <Button variant="contained" type="submit">Подтвердить</Button>
     </Box>
   );
-}
+};
