@@ -9,7 +9,9 @@ interface GoodsService {
 
 const OSGetGoodList = async (): Promise<Good[]> => {
   const response = await axios(
-    `${process.env.API_ENDPOINT!}${stringifyParams({ ApiKey: process.env.API_KEY!, MethodName: 'OSGetGoodList' })}`,
+    `${process.env.API_ENDPOINT!}${stringifyParams({
+      ApiKey: process.env.API_KEY!, MethodName: 'OSGetGoodList'
+    })}`,
   );
 
   const result = GoodSchema.array().safeParse(response.data.data);

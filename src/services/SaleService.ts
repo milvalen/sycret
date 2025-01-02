@@ -9,7 +9,9 @@ interface SaleService {
 
 const OSSale = async (data: SaleData): Promise<Sale> => {
   const response = await axios(
-    `${process.env.API_ENDPOINT!}${stringifyParams({ ApiKey: process.env.API_KEY, MethodName: 'OSSale' })}${stringifyParams(data)}`,
+    `${process.env.API_ENDPOINT!}${stringifyParams({
+      ApiKey: process.env.API_KEY, MethodName: 'OSSale'
+    })}&${stringifyParams(data, false)}`,
   );
 
   const result = SaleSchema.safeParse(response.data.data);

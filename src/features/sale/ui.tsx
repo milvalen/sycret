@@ -1,10 +1,10 @@
 import {Box, Button, ButtonGroup, InputAdornment, TextField} from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
-import React, {FormEvent, useState} from 'react';
+import React, {useState} from 'react';
 import * as style from '../../styles/sale.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch, RootState} from '../../shared/lib/redux';
-import {saleSlice} from './model';
+import {addSale, saleSlice} from './model';
 import {SaleValidation} from '../../types/SaleType';
 import {handleZodValidation, ValidationError} from '../../shared/lib/zod';
 
@@ -23,10 +23,7 @@ export const Sale = () => {
     handleZodValidation({
       onError: setErrors,
       data: form,
-      onSuccess: (res) => {
-        console.log(form);
-        // todo: dispatch form submit
-      },
+      onSuccess: () => dispatch(addSale(form)),
       schema: SaleValidation,
     });
   };

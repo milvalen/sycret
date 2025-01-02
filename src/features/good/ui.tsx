@@ -26,7 +26,7 @@ export const GoodChoice = () => {
     dispatch(fetchGoods())
   }, [dispatch]);
 
-  if (!goods.length) return <div><CircularProgress /></div>;
+  if (!goods.length) return <CircularProgress />;
 
   return (
     <div className={style.gridContainer}>
