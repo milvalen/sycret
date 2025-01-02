@@ -1,3 +1,3 @@
-import {SalesPage} from './page';
+import SalesPage from './page';
 
 export default SalesPage;

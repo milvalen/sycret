@@ -42,6 +42,7 @@ export const saleSlice = createSlice({
     addSale.fulfilled,
     (state, action) => {
       state.sale = action.payload.CERTNUMBER;
+      state.name = '';
     }
   )
 });

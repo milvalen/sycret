@@ -3,8 +3,9 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../../shared/lib/redux';
 import {Sale} from '../../features/sale/ui';
 import {useNavigate} from 'react-router-dom';
+import Thanks from '../../components/Thanks';
 
-export const SalesPage = () => {
+const SalesPage = () => {
   const navigate = useNavigate();
   const sale = useSelector((state: RootState) => state.sale);
   const goods = useSelector((state: RootState) => state.good.goods);
@@ -12,6 +13,8 @@ export const SalesPage = () => {
   useEffect(() => {
     if (!goods.length) navigate('/');
   }, [goods])
+
+  if (!sale.name) return <Thanks sale={sale.sale} />;
 
   return (
     <>
@@ -21,3 +24,5 @@ export const SalesPage = () => {
     </>
   );
 }
+
+export default SalesPage;

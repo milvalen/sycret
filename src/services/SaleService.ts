@@ -14,7 +14,7 @@ const OSSale = async (data: SaleData): Promise<Sale> => {
     })}&${stringifyParams(data, false)}`,
   );
 
-  const result = SaleSchema.safeParse(response.data.data);
+  const result = SaleSchema.safeParse(response.data.data[0]);
   if (!result.success) return handleIncorrectParse(result.error, 'OSSale');
 
   return result.data;
