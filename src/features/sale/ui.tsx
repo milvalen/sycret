@@ -14,6 +14,7 @@ export const Sale = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   function handleChange(field: keyof typeof form, value: string | number) {
+    if (field.includes('Phone')) value = (value as string).replace(/\D/g, '');
     dispatch(saleSlice.actions.updateField({field, value: value}));
   }
 
