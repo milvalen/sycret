@@ -1,0 +1,23 @@
+.sale-card {
+  background-color: #2C363F;
+  color: white;
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: auto;
+  box-shadow: 3rem 3rem 3rem #90caf950;
+  h5 {
+    color: #ffffff;
+    margin-bottom: 1rem
+  }
+  h6 {
+    font-weight: bold;
+    color: #90caf9;
+  }
+  &__thanks {
+    color: #dddddd;
+    margin-bottom: 0.5rem
+  }
+  &__misc {
+    color: #dddddd;
+  }
+}
